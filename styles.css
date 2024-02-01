@@ -92,3 +92,7 @@ button{
     margin-top: 20px;
     margin-left: 10px;
 }
+
+.holding{
+    filter: brightness(85%);
+}
