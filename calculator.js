@@ -11,7 +11,6 @@ const operations = {
     '-': (a, b) => a - b,
     '×': (a, b) => +a * +b,
     '÷': (a, b) => Math.round((a / b) * 1000) / 1000,
-    '%': (a,b) => a * (b/100)
 };
 
 for (let i = 0; i < buttons.length; i++){
@@ -37,9 +36,9 @@ for (let i = 0; i < buttons.length; i++){
     if(buttons[i].textContent === '←'){
         buttons[i].addEventListener('click', backspace)
     }
-    // if(buttons[i].textContent === '%'){
-    //     buttons[i].addEventListener('click', percent)
-    // }
+    if(buttons[i].textContent === '%'){
+        buttons[i].addEventListener('click', percent)
+    }
     if(buttons[i].textContent === '.'){
         buttons[i].addEventListener('click', comma)
     }
@@ -50,7 +49,13 @@ function reverse(){
 }
 
 function percent(){
-    if (screen.textContent){screen.textContent = parseFloat(screen.textContent) / 100}
+    if (number1 && screen.textContent && operator){
+        let temp_result = operations[operator](number1, number1*(screen.textContent / 100));
+        screen.textContent = temp_result;
+        number1 = temp_result;
+        operator = null;
+        number2 = null;
+    }
 }
 function clear(){
     screen.textContent = '';
