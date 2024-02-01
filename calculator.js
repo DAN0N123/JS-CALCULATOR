@@ -10,7 +10,8 @@ const operations = {
     '+': (a, b) => +a + +b,
     '-': (a, b) => a - b,
     '×': (a, b) => +a * +b,
-    '÷': (a, b) => Math.round((a / b) * 1000) / 1000
+    '÷': (a, b) => Math.round((a / b) * 1000) / 1000,
+    '%': (a,b) => a * (b/100)
 };
 
 for (let i = 0; i < buttons.length; i++){
@@ -33,10 +34,12 @@ for (let i = 0; i < buttons.length; i++){
     if(buttons[i].textContent === '='){
         buttons[i].addEventListener('click', equals)
     }
-
-    if(buttons[i].textContent === '%'){
-        buttons[i].addEventListener('click', percent)
+    if(buttons[i].textContent === '←'){
+        buttons[i].addEventListener('click', backspace)
     }
+    // if(buttons[i].textContent === '%'){
+    //     buttons[i].addEventListener('click', percent)
+    // }
     if(buttons[i].textContent === '.'){
         buttons[i].addEventListener('click', comma)
     }
@@ -49,9 +52,6 @@ function reverse(){
 function percent(){
     if (screen.textContent){screen.textContent = parseFloat(screen.textContent) / 100}
 }
-function backspace(){
-
-}
 function clear(){
     screen.textContent = '';
     number1 = null;
@@ -60,9 +60,15 @@ function clear(){
     is_result = false;
 }
 function comma(){
-    let screenArr;
     if (!screen.textContent.split('').includes('.')){screen.textContent += '.'}
     
+}
+
+function backspace(){
+    let screenArr = screen.textContent.split('');
+    console.log(screen.textContent)
+    screen.textContent = screenArr.splice(0, screenArr.length - 1).join('')
+    console.log(screen.textContent)
 }
 function operation(button){
     if (operator === null){
